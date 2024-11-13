@@ -12,32 +12,44 @@ import { useState } from "react";
 //       <div className="App">
 //         {puppies.map((puppy) => {
 //           return <p key={puppy.id}>{puppy.name}</p>;
-          
+
 //         })}
 //       </div>
 //     </>
 //   );
 // }
+console.log(puppyList);
 
 function App() {
   const [puppies, setPuppies] = useState(puppyList);
   const [featPupId, setFeatPupId] = useState(null);
+  const featuredPup = puppies.find((pup) => pup.id === featPupId);
 
-  function handleClick() {
-    // click,click,boom
-  }
+  console.log(featuredPup);
 
   return (
     <div className="App">
-      {puppies.map((puppy) => {
-        return (
-          <p 
+      {puppies.map((puppy) => (
+        <p
+          onClick={() => {
+            setFeatPupId(puppy.id);
+          }}
           key={puppy.id}
-          onClick={() => { console.log("puppy id: ", puppy.id);}}>{puppy.name}</p>
-        );
-      })}
+        >
+          {puppy.name}
+        </p>
+      ))}
+
+      {featPupId && (
+        <div>
+          <h2>{featuredPup.name}</h2>
+          <ul>
+            <li>Age: {featuredPup.age}</li>
+            <li>Email: {featuredPup.email}</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
-
 export default App;
